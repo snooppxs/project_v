@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: snooppxs/web
+    restart: unless-stopped
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./init_mysql:/docker-entrypoint-initdb.d/:ro
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd!
+      MYSQL_DATABASE: project_v
+      MYSQL_USER: webmaster
+      MYSQL_PASSWORD: P@ssw0rd
+    ports:
+      - "9900:3306"
+  web:
+    container_name: php_web
+    image: snooppxs/mysql
+    depends_on:
+      - db
+    ports:
+      - "9901:80"
+    restart: unless-stopped
