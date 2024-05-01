@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: snooppxs/web
+    image: snooppxs/mysql
     restart: unless-stopped
     volumes:
       - ./mysql-data:/var/lib/mysql
@@ -15,7 +15,7 @@ services:
       - "9900:3306"
   web:
     container_name: php_web
-    image: snooppxs/mysql
+    image: snooppxs/web
     depends_on:
       - db
     ports:
